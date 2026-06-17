@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!--Created by Tivotal-->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photos & Videos</title>
+
+    <!--swiper css-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+
+    <!--font awesome-->++
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+
+    <!--css file-->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body>
+    <!-- header section starts  -->
+    <header class="header">
+      <a href="#" class="logo"><span>EV</span>XPERT</a>
+
+      <nav class="navbar">
+        <a href="/">home</a>
+        {% if current_user.is_authenticated %}
+    <a href="/dashboard">👤 {{ current_user.username }}</a>
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+{% else %}
+    <a href="{{ url_for('auth.login') }}">👤 UserLogin</a>
+{% endif %}
+        <a href="#contact">contact</a>
+      </nav>
+
+      <div id="menu-bars" class="fas fa-bars"></div>
+    </header>
+
+    <!-- home section starts  -->
+    <section class="home" id="home">
+      <div class="content">
+        <h3>
+          Welcome to India's Event 
+          <span> EvXpert</span>
+        </h3>
+      
+      </div>
+
+
+
+      <style>
+        
+        /* Header Styles */
+        header {
+           
+             color:  #ff7e92;
+            text-align: center;
+            padding: 40px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Filter Buttons */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .filter-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .filter-btn.active {
+            background-color: white;
+            color:#ff7e92;
+        }
+        
+        /* Gallery Container */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Gallery Items */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 16/9;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-item.video::before {
+            content: "▶";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            z-index: 2;
+        }
+        
+        /* Modal/Lightbox */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img, .modal-content video {
+            max-width: 100%;
+            max-height: 90vh;
+            display: block;
+            border-radius: 5px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .filter-container {
+                flex-wrap: wrap;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Beautiful Media Gallery</h1>
+        <p>Browse through our collection of stunning images and videos</p>
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="video">Videos</button>
+            <button class="filter-btn" data-filter="image">Images</button>
+        </div>
+    </header>
+    
+    <div class="gallery-container">
+        <div class="gallery">
+            <!-- Images -->
+            <div class="gallery-item image">
+                <img src="/static/images/college2.jpg" alt="Nature landscape">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/college3.jpg" alt="City skyline">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/college4.jpg" alt="Mountain view">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/gallery1.jpg" alt="Ocean waves">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/gallery2.jpg" alt="Forest path">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/gallery9.jpg" alt="Desert landscape">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/gallery5.jpg" alt="Winter scene">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/gae1.jpg" alt="Autumn colors">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/gae2.jpg" alt="Desert landscape">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/ga1.jpg" alt="Winter scene">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/ga3.jpg" alt="Autumn colors">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/ga7.jpg" alt="Autumn colors">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/ga4.jpeg" alt="Winter scene">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/ga5.jpg" alt="Autumn colors">
+            </div>
+            <div class="gallery-item image">
+                <img src="/static/images/ga8.jpg" alt="Autumn colors">
+            </div>
+            <!-- Videos -->
+            <div class="gallery-item video">
+                <video poster="">
+                    <source src="/static/videos/Video1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="gallery-item video">
+                <video poster="/static/videos/Video3.mp4">
+                    <source src="/static/videos/Video2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="gallery-item video">
+                <video poster="/static/videos/Video4.mp4">
+                    <source src="/static/videos/Video3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="gallery-item video">
+                <video poster="/static/videos/Video4.mp4">
+                    <source src="/static/videos/WhatsApp Video 2025-04-12 at 3.36.57 PM.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="gallery-item video">
+                <video poster="/static/videos/Video2.mp4">
+                    <source src="/static/videos/Video4.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lightbox/Modal for displaying items -->
+    <div class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Randomize the order of gallery items
+            const gallery = document.querySelector('.gallery');
+            const items = Array.from(gallery.children);
+            
+            // Fisher-Yates shuffle algorithm
+            for (let i = items.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [items[i].innerHTML, items[j].innerHTML] = [items[j].innerHTML, items[i].innerHTML];
+                
+                // Make sure we maintain the right classes
+                if (items[i].querySelector('video')) {
+                    items[i].classList.add('video');
+                    items[i].classList.remove('image');
+                } else {
+                    items[i].classList.add('image');
+                    items[i].classList.remove('video');
+                }
+                
+                if (items[j].querySelector('video')) {
+                    items[j].classList.add('video');
+                    items[j].classList.remove('image');
+                } else {
+                    items[j].classList.add('image');
+                    items[j].classList.remove('video');
+                }
+            }
+            
+            // Filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Filter gallery items
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.classList.contains(filter)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Lightbox/Modal functionality
+            const modal = document.querySelector('.modal');
+            const modalContent = document.querySelector('.modal-content');
+            const closeModal = document.querySelector('.close-modal');
+            
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    modal.classList.add('active');
+                    
+                    if (item.classList.contains('video')) {
+                        const video = item.querySelector('video').cloneNode(true);
+                        video.controls = true;
+                        video.autoplay = true;
+                        modalContent.innerHTML = '';
+                        modalContent.appendChild(video);
+                    } else {
+                        const img = item.querySelector('img').cloneNode(true);
+                        modalContent.innerHTML = '';
+                        modalContent.appendChild(img);
+                    }
+                });
+            });
+            
+            closeModal.addEventListener('click', function() {
+                modal.classList.remove('active');
+                const video = modalContent.querySelector('video');
+                if (video) {
+                    video.pause();
+                }
+            });
+            
+            // Close modal on outside click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    const video = modalContent.querySelector('video');
+                    if (video) {
+                        video.pause();
+                    }
+                }
+            });
+            
+            // Close modal on ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                    const video = modalContent.querySelector('video');
+                    if (video) {
+                        video.pause();
+                    }
+                }
+            });
+        });
+    </script>
+
+
+    <!-- contact section starts  -->
+    <section class="contact" id="contact">
+        <h1 class="heading"><span>contact</span> us</h1>
+        <div class="contact-col">
+  
+          <div class="contact-box">
+              <h1>Click the Contact button for contact the team directly on Mail<br> <h1><br>
+  
+              <!-- <button type="submit" class="hero-btn-red">Contact Me</button>
+  -->
+              <button type="submit" class="hero-btn-blue">
+  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=managmentevent03@gmail.com&su=Event%20Query&body=Hello%2C%20I%20have%20a%20question%20about%20the%20event...
+  " style="color: inherit; text-decoration: none;">Contact Me</a>
+  </button>
+  
+  
+          </div>
+      </div>
+  
+      </section>
+  
+      <!-- footer section starts  -->
+      <section class="footer">
+        <div class="box-container">
+          <div class="box">
+            <h3>branches</h3>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Shegaon </a>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Khamgaon </a>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Akola </a>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Pune </a>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Nagpur </a>
+        </div>
+  
+          <div class="box">
+            <h3>quick links</h3>
+            <a href="#"> <i class="fas fa-arrow-right"></i> home </a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> service </a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> about </a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> gallery </a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> price </a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> reivew </a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> contact </a>
+          </div>
+  
+          <div class="box">
+            <h3>contact info</h3>
+            <a href="#"> <i class="fas fa-phone"></i> +91-932-2577-057 </a>
+            <a href="#"> <i class="fas fa-phone"></i> +91-888-8200-379</a>
+            <a href="#"> <i class="fas fa-envelope"></i> satvikvasatkar@gmail.com </a>
+            <a href="#"> <i class="fas fa-envelope"></i> pranalilokhande@gmail.com </a>
+            <a href="#">
+              <i class="fas fa-map-marker-alt"></i> Shegaon, india - 444302
+            </a>
+          </div>
+  
+          <div class="box">
+            <h3>follow us</h3>
+            <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
+            <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
+            <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
+            <a href="#"> <i class="fab fa-linkedin-in"></i> linkedin </a>
+          </div>
+        </div>
+  
+        <div class="credit">
+          created by <span>EvXpert</span> | all rights reserved
+        </div>
+      </section>
+  

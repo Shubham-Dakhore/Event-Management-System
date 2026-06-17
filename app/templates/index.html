@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!--Created by Tivotal-->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Organisers | EvXpert</title>
+
+
+    <!--swiper css-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+
+    <!--font awesome-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+
+    <!--css file-->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+
+
+
+  <body>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    
+    <!-- header section starts  -->
+    <header class="header">
+      <a href="#" class="logo"><span>EV</span>XPERT</a>
+
+      <nav class="navbar">
+        <a href="#home">home</a>
+        <a href="#service">service</a>
+        <a href="#about">about</a>
+        <a href="#gallery">gallery</a>
+        <a href="#price">price</a>
+        <a href="#review">review</a>
+        <a href="#contact">contact</a>
+      {% if current_user.is_authenticated %}
+          <a href="/dashboard">👤 {{ current_user.username }}</a>
+          <a href="{{ url_for('auth.logout') }}">Logout</a>
+      {% else %}
+          <a href="{{ url_for('auth.login') }}">👤 UserLogin</a>
+      {% endif %}
+      </nav>
+
+      <div id="menu-bars" class="fas fa-bars"></div>
+    </header>
+
+    <!-- home section starts  -->
+    <section class="home" id="home">
+      <div class="content">
+        <h3>
+          Welcome to India's Event 
+          <span> EvXpert</span>
+        </h3>
+      
+      </div>
+
+      <div class="swiper-container home-slider">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="/static/images/img6.jpeg" alt="" />
+          </div>
+          <div class="swiper-slide">
+            <img src="/static/images/img2.jpeg" alt="" />
+          </div>
+          <div class="swiper-slide">
+            <img src="/static/images/img3.jpeg" alt="" />
+          </div>
+          <div class="swiper-slide">
+            <img src="/static/images/img4.jpeg" alt="" />
+          </div>
+          <div class="swiper-slide">
+            <img src="/static/images/img1.jpeg" alt="" />
+          </div>
+          <div class="swiper-slide">
+            <img src="/static/images/img5.jpeg" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- service section starts  -->
+    <section class="service" id="service">
+      <h1 class="heading">our <span>services</span></h1>
+
+
+      <a href="/servicecard" target="_self">
+      <div class="box-container">
+        <div class="box">
+          <i class="fas fa-envelope"></i>
+          <h3>invitation card design</h3>
+          <p>
+        
+
+              Join us for a joyous celebration filled with love, laughter,
+              and memories to cherish forever. Your presence completes 
+              our day!
+            
+          </p>
+        </div> </a>
+
+
+        <a href="/servicepav" target="_self">
+
+        <div class="box">
+          <i class="fas fa-photo-video"></i>
+          <h3>photos and videos</h3>
+          <p>
+            
+
+             Capture the moments, cherish the memories! Join us for 
+             a celebration where every smile and laugh becomes
+              part of our story.
+
+
+          </p>
+        </div>
+
+        </a>
+
+       
+    </section>
+
+    <!-- about section starts  -->
+    <section class="about" id="about">
+      <h1 class="heading"><span>about</span> us</h1>
+
+      <div class="row">
+        <div class="image">
+          <img src="/static/images/about.jpg" alt="" />
+        </div>
+        <div class="content">
+          <h3>
+            your occasion deserves our careful planning
+          </h3>
+            <p>
+              
+
+              
+              At EvXpert, we believe every occasion deserves 
+              our careful planning and flawless execution. With creativity,
+               precision, and passion, we transform visions into 
+               unforgettable experiences. From corporate events to private 
+               celebrations, we handle every detail so you can enjoy every moment.  
+
+              Our team brings expertise, innovation, and dedication to ensure each event
+               reflects your unique style, leaving a lasting impression.
+
+            Your vision, our expertise — extraordinary events, every time.
+
+
+
+
+              
+              
+            </p>
+              
+       
+        </div>
+      </div>
+    </section>
+
+    <!-- gallery section starts  -->
+    <section class="gallery" id="gallery">
+      <h1 class="heading">our <span>gallery</span></h1>
+
+      <div class="box-container">
+        <div class="box">
+          <img src="/static/images/gallery1.jpg" alt="" />
+          <h3 class="title">best events</h3>
+          <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-share"></a>
+            <a href="#" class="fas fa-eye"></a>
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="/static/images/gallery2.jpg" alt="" />
+          <h3 class="title">best events</h3>
+          <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-share"></a>
+            <a href="#" class="fas fa-eye"></a>
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="/static/images/g1.jpg" alt="" />
+          <h3 class="title">best events</h3>
+          <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-share"></a>
+            <a href="#" class="fas fa-eye"></a>
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="/static/images/g4.jpg" alt="" />
+          <h3 class="title">best events</h3>
+          <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-share"></a>
+            <a href="#" class="fas fa-eye"></a>
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="/static/images/gallery5.jpg" alt="" />
+          <h3 class="title">best events</h3>
+          <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-share"></a>
+            <a href="#" class="fas fa-eye"></a>
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="/static/images/g4.jpg" alt="" />
+          <h3 class="title">best events</h3>
+          <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-share"></a>
+            <a href="#" class="fas fa-eye"></a>
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="/static/images/g3.jpg" alt="" />
+          <h3 class="title">best events</h3>
+          <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-share"></a>
+            <a href="#" class="fas fa-eye"></a>
+          </div>
+        </div>
+
+        <div class="box">
+          <img src="/static/images/g5.jpg" alt="" />
+          <h3 class="title">best events</h3>
+          <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-share"></a>
+            <a href="#" class="fas fa-eye"></a>
+          </div>
+        </div>
+
+       
+      </div>
+    </section>
+    <style>
+    .price-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+  }
+
+  .section-heading {
+      text-align: center;
+      margin-bottom: 40px;
+  }
+
+  .section-heading h2 {
+      font-size: 36px;
+      color:white;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+  }
+
+  .section-heading h2::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 3px;
+      background:  #ff7e92;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+  }
+
+  .section-heading h2 span {
+      color: #ff7e92;
+  }
+
+  .pricing-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+  }
+
+  .pricing-card {
+      flex: 1 1 250px;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+  }
+
+  .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: #3498db;
+      transition: height 0.3s ease;
+  }
+
+  .pricing-card:hover::before {
+      height: 10px;
+  }
+
+  .pricing-card.basic::before {
+      background: #3498db;
+  }
+
+  .pricing-card.prime::before {
+      background: #2ecc71;
+  }
+
+  .pricing-card.luxury::before {
+      background: #9b59b6;
+  }
+
+  .pricing-card.ultra::before {
+      background: #f39c12;
+  }
+
+  .pricing-content {
+      padding: 30px 25px;
+      text-align: center;
+  }
+
+  .pricing-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 15px;
+      position: relative;
+      padding-bottom: 10px;
+  }
+
+  .pricing-title::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+  }
+
+  .pricing-card.basic .pricing-title::after {
+      background: #3498db;
+  }
+
+  .pricing-card.prime .pricing-title::after {
+      background: #2ecc71;
+  }
+
+  .pricing-card.luxury .pricing-title::after {
+      background: #9b59b6;
+  }
+
+  .pricing-card.ultra .pricing-title::after {
+      background: #f39c12;
+  }
+
+  .pricing-price {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
+  }
+
+  .pricing-card.basic .pricing-price {
+      color: #3498db;
+  }
+
+  .pricing-card.prime .pricing-price {
+      color: #2ecc71;
+  }
+
+  .pricing-card.luxury .pricing-price {
+      color: #9b59b6;
+  }
+
+  .pricing-card.ultra .pricing-price {
+      color: #f39c12;
+  }
+
+  .pricing-period {
+      display: block;
+      font-size: 14px;
+      color: #777;
+      margin-top: 5px;
+  }
+
+  .pricing-description {
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 20px;
+      min-height: 50px;
+  }
+
+  .pricing-features {
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+      margin-bottom: 20px;
+  }
+
+  .feature-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: #555;
+  }
+
+  .feature-item:before {
+      content: '✓';
+      display: inline-block;
+      margin-right: 8px;
+      font-weight: bold;
+  }
+
+  .pricing-card.basic .feature-item:before {
+      color: #3498db;
+  }
+
+  .pricing-card.prime .feature-item:before {
+      color: #2ecc71;
+  }
+
+  .pricing-card.luxury .feature-item:before {
+      color: #9b59b6;
+  }
+
+  .pricing-card.ultra .feature-item:before {
+      color: #f39c12;
+  }
+
+  .pricing-button {
+      display: inline-block;
+      padding: 12px 30px;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+  }
+
+  .pricing-card.basic .pricing-button {
+      background: #3498db;
+      border: 2px solid #3498db;
+  }
+
+  .pricing-card.basic .pricing-button:hover {
+      background: transparent;
+      color: #3498db;
+  }
+
+  .pricing-card.prime .pricing-button {
+      background: #2ecc71;
+      border: 2px solid #2ecc71;
+  }
+
+  .pricing-card.prime .pricing-button:hover {
+      background: transparent;
+      color: #2ecc71;
+  }
+
+  .pricing-card.luxury .pricing-button {
+      background: #9b59b6;
+      border: 2px solid #9b59b6;
+  }
+
+  .pricing-card.luxury .pricing-button:hover {
+      background: transparent;
+      color: #9b59b6;
+  }
+
+  .pricing-card.ultra .pricing-button {
+      background: #f39c12;
+      border: 2px solid #f39c12;
+  }
+
+  .pricing-card.ultra .pricing-button:hover {
+      background: transparent;
+      color: #f39c12;
+  }
+
+  /* Highlight popular plan */
+  .pricing-card.prime {
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .popular-badge {
+      position: absolute;
+      top: 0;
+      right: 30px;
+      background: #2ecc71;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 0 0 5px 5px;
+      z-index: 2;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1100px) {
+      .pricing-container {
+          justify-content: center;
+      }
+      .pricing-card {
+          flex: 1 1 calc(50% - 20px);
+          max-width: calc(50% - 20px);
+      }
+  }
+
+  @media (max-width: 768px) {
+      .pricing-card {
+          flex: 1 1 100%;
+          max-width: 100%;
+      }
+      .section-heading h2 {
+          font-size: 28px;
+      }
+      .pricing-card.prime {
+          transform: none;
+      }
+  }
+
+
+.flash{
+    padding:10px;
+    margin:10px;
+    border-radius:5px;
+}
+
+.success{
+    background:#28a745;
+    color:white;
+}
+
+.danger{
+    background:#dc3545;
+    color:white;
+}
+
+
+</style>
+
+
+
+<body>
+<section class="price" id="price">
+  <div class="section-heading">
+      <h2>Our <span>Pricing</span></h2>
+  </div>
+  
+  <div class="pricing-container">
+      <!-- Basic Plan -->
+      <div class="pricing-card basic">
+          <div class="pricing-content">
+              <h3 class="pricing-title">Basic</h3>
+              <div class="pricing-price">
+                  RS.10,000
+                  <span class="pricing-period">Limited slots available!</span>
+              </div>
+              <p class="pricing-description">Get the best rate by registering early for our exclusive event.</p>
+              <div class="pricing-features">
+                  <div class="feature-item">Free Event T-Shirt</div>
+                  <div class="feature-item">Welcome Kit</div>
+                  <div class="feature-item">Entry to Main Event</div>
+              </div>
+              <a href="{{ url_for('main.booking') }}" class="pricing-button"> Book Event</a>
+          </div>
+      </div>
+      
+      <!-- Prime Plan -->
+      <div class="pricing-card prime">
+          <div class="popular-badge">POPULAR</div>
+          <div class="pricing-content">
+              <h3 class="pricing-title">Prime</h3>
+              <div class="pricing-price">
+                  Rs.30,000
+                  <span class="pricing-period">May 16 - June 1</span>
+              </div>
+              <p class="pricing-description">Standard pricing for general attendees. Don't miss out!</p>
+              <div class="pricing-features">
+                  <div class="feature-item">Access to Workshops</div>
+                  <div class="feature-item">Free Refreshments</div>
+                  <div class="feature-item">Networking Session</div>
+              </div>
+              <a href="{{ url_for('main.booking') }}" class="pricing-button"> Book Event</a>
+          </div>
+      </div>
+      
+      <!-- Luxury Plan -->
+      <div class="pricing-card luxury">
+          <div class="pricing-content">
+              <h3 class="pricing-title">Luxury</h3>
+              <div class="pricing-price">
+                  Rs.50000
+                  <span class="pricing-period">After June 1</span>
+              </div>
+              <p class="pricing-description">Late sign-ups? No problem, but prices are higher!</p>
+              <div class="pricing-features">
+                  <div class="feature-item">VIP Lounge Access</div>
+                  <div class="feature-item">Complimentary Drinks</div>
+                  <div class="feature-item">Premium Seating</div>
+              </div>
+              <a href="{{ url_for('main.booking') }}" class="pricing-button"> Book Event</a>
+          </div>
+      </div>
+      
+      <!-- Ultra Plan -->
+      <div class="pricing-card ultra">
+          <div class="pricing-content">
+              <h3 class="pricing-title">Ultra</h3>
+              <div class="pricing-price">
+                  Rs.100000
+                  <span class="pricing-period">For 5+ attendees</span>
+              </div>
+              <p class="pricing-description">Bring your team and save more with our group offers!</p>
+              <div class="pricing-features">
+                  <div class="feature-item">Group Photo Session</div>
+                  <div class="feature-item">Dedicated Team Space</div>
+                  <div class="feature-item">Group Activities</div>
+              </div>
+              <a href="{{ url_for('main.booking') }}" class="pricing-button"> Book Event</a>
+          </div>
+      </div>
+  </div>
+</section>
+
+    <!-- review section starts  -->
+    <section class="reivew" id="review">
+      <h1 class="heading">client's <span>review</span></h1>
+
+      <div class="review-slider swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide box">
+            <i class="fas fa-quote-right"></i>
+            <div class="user">
+              <img src="/static/images/img12.jpg" alt="" />
+              <div class="user-info">
+                <h3>Pree Sharma</h3>
+                <span>happy customer</span>
+              </div>
+            </div>
+            <p>
+            
+
+              Excellent service, timely delivery, and clear communication 
+              throughout. Highly satisfied with the results and would 
+              definitely recommend their expertise. 
+
+
+            </p>
+          </div>
+
+          <div class="swiper-slide box">
+            <i class="fas fa-quote-right"></i>
+            <div class="user">
+              <img src="/static/images/wed7.jpg" alt="" />
+              <div class="user-info">
+                <h3>Ashutosh Mishra</h3>
+                <span>happy customer</span>
+              </div>
+            </div>
+            <p>
+               
+
+             Professional, efficient, and detail-oriented. Delivered 
+             exactly what we needed, on time and with great communication.
+              Highly recommended service.
+
+
+            </p>
+          </div>
+
+          <div class="swiper-slide box">
+            <i class="fas fa-quote-right"></i>
+            <div class="user">
+              <img src="/static/images/img13.jpg" alt="" />
+              <div class="user-info">
+                <h3>Shradha kapoor</h3>
+                <span>happy customer</span>
+              </div>
+            </div>
+            <p>
+              
+
+              Great experience working with the team. 
+              They understood our requirements perfectly and 
+              delivered exceptional results ahead of schedule.
+              
+              
+            </p>
+          </div>
+
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- contact section starts  -->
+    <section class="contact" id="contact">
+      <h1 class="heading"><span>contact</span> us</h1>
+      <div class="contact-col">
+
+        <div class="contact-box">
+            <h1>Click the Contact button for contact the team directly on Mail<br> <h1><br>
+
+            <!-- <button type="submit" class="hero-btn-red">Contact Me</button>-->
+            <button type="submit" class="hero-btn-blue">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=managmentevent03@gmail.com" class="hero-btn-blue">
+                Contact Me
+              </a>
+            </button>
+
+
+        </div>
+    </div>
+
+    </section>
+
+    <!-- footer section starts  -->
+    <section class="footer">
+      <div class="box-container">
+        <div class="box">
+          <h3>branches</h3>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Shegaon </a>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Khamgaon </a>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Akola </a>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Pune </a>
+          <a href="#"> <i class="fas fa-map-marker-alt"></i> Nagpur </a>
+        </div>
+
+        <div class="box">
+          <h3>quick links</h3>
+          <a href="#"> <i class="fas fa-arrow-right"></i> home </a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> service </a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> about </a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> gallery </a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> price </a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> reivew </a>
+          <a href="#"> <i class="fas fa-arrow-right"></i> contact </a>
+        </div>
+
+        <div class="box">
+          <h3>contact info</h3>
+          <a href="#"> <i class="fas fa-phone"></i> +91-932-2577-057 </a>
+          <a href="#"> <i class="fas fa-phone"></i> +91-888-8200-379</a>
+          <a href="#"> <i class="fas fa-envelope"></i> shubhamdakhore0123@gmail.com </a>
+          <a href="#"> <i class="fas fa-envelope"></i> hirolkaryash@gmail.com </a>
+          <a href="#">
+            <i class="fas fa-map-marker-alt"></i> Shegaon, india - 444302
+          </a>
+        </div>
+
+        <div class="box">
+          <h3>follow us</h3>
+          <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
+          <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
+          <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
+          <a href="#"> <i class="fab fa-linkedin-in"></i> linkedin </a>
+        </div>
+      </div>
+
+      <div class="credit">
+        created by <span>EvXpert</span> | all rights reserved
+      </div>
+    </section>
+
+    <!-- theme toggler  -->
+    <div class="theme-toggler">
+      <div class="toggle-btn">
+        <i class="fas fa-cog"></i>
+      </div>
+
+      <h3>choose color</h3>
+
+      <div class="buttons">
+        <div class="theme-btn" style="background: #ccff33"></div>
+        <div class="theme-btn" style="background: #d35400"></div>
+        <div class="theme-btn" style="background: #f39c12"></div>
+        <div class="theme-btn" style="background: #1abc9c"></div>
+        <div class="theme-btn" style="background: #3498db"></div>
+        <div class="theme-btn" style="background: #9b59b6"></div>
+      </div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!--JS file-->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>

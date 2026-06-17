@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Booking | EvXpert</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+<style>
+
+/* ===== BACKGROUND ===== */
+.booking-section{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: radial-gradient(circle at top,#1a1a1a,#000);
+}
+
+/* ===== CARD ===== */
+.booking-card{
+    display:flex;
+    width:900px;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* ===== LEFT PANEL ===== */
+.booking-left{
+    flex:1;
+    background:#ff7e92;
+    color:white;
+    padding:50px 40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.booking-left h1{
+    font-size:34px;
+    margin-bottom:15px;
+}
+
+.booking-left p{
+    font-size:14px;
+    line-height:1.6;
+}
+
+.features{
+    margin-top:25px;
+}
+
+.features div{
+    margin-bottom:10px;
+}
+
+/* ===== RIGHT PANEL ===== */
+.booking-right{
+    flex:1;
+    background:#1a1a1a;
+    padding:40px;
+}
+
+/* ===== FORM ===== */
+.form-box h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:white;
+}
+
+.form-box span{
+    color:#ff7e92;
+}
+
+/* ===== INPUT ===== */
+.input-group{
+    position:relative;
+    margin-bottom:16px;
+}
+
+.input-group i{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#aaa;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:12px 12px 12px 35px;
+    border:none;
+    border-radius:6px;
+    background:#2b2b2b;
+    color:white;
+}
+
+.input-group input:focus,
+.input-group select:focus{
+    outline:none;
+    border:1px solid #ff7e92;
+}
+
+/* ===== BUTTON ===== */
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:30px;
+    background:#ff7e92;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:transparent;
+    border:2px solid #ff7e92;
+    color:#ff7e92;
+}
+
+/* ===== PRICE ===== */
+.price-info{
+    text-align:center;
+    font-weight:bold;
+    color:#2ecc71;
+    margin-top:5px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+    .booking-card{
+        flex-direction:column;
+        width:90%;
+    }
+}
+
+</style>
+
+<script>
+const plans = {
+    basic: 10000,
+    premium: 30000,
+    luxury: 50000,
+    ultra: 100000
+};
+
+function setAmount(){
+    let plan = document.getElementById("plan").value;
+    let amountField = document.getElementById("amount");
+    let priceText = document.getElementById("priceText");
+
+    if(plans[plan]){
+        amountField.value = plans[plan];
+        priceText.innerHTML = "Selected Price: ₹" + plans[plan].toLocaleString();
+    } else {
+        amountField.value="";
+        priceText.innerHTML="";
+    }
+}
+</script>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+  <a href="/" class="logo"><span>EV</span>XPERT</a>
+
+  <nav class="navbar">
+    <a href="/">home</a>
+
+```
+{% if current_user.is_authenticated %}
+    <a href="/dashboard">👤 {{ current_user.username }}</a>
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+{% else %}
+    <a href="{{ url_for('auth.login') }}">👤 Login</a>
+{% endif %}
+```
+
+  </nav>
+</header>
+
+<!-- BOOKING -->
+
+<section class="booking-section">
+
+<div class="booking-card">
+
+<!-- LEFT -->
+
+<div class="booking-left">
+    <h1>Plan Your Perfect Event 🎉</h1>
+    <p>
+        Book your event effortlessly with EvXpert. Choose your plan,
+        customize your event, and let us handle everything.
+    </p>
+
+```
+<div class="features">
+    <div>✔ Professional Event Management</div>
+    <div>✔ Custom Themes & Decoration</div>
+    <div>✔ Photography & Videography</div>
+    <div>✔ 24/7 Support</div>
+</div>
+```
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="booking-right">
+
+<div class="form-box">
+
+<h2>Event <span>Booking</span></h2>
+
+<form method="POST">
+
+<div class="input-group">
+<i class="fa fa-user"></i>
+<input type="text" name="name" placeholder="Full Name" required>
+</div>
+
+<!-- ✅ NEW ADDRESS FIELD -->
+
+<div class="input-group">
+<i class="fa fa-location-dot"></i>
+<input type="text" name="address" placeholder="Enter your address" required>
+</div>
+
+<div class="input-group">
+<i class="fa fa-phone"></i>
+<input type="tel" name="phone" placeholder="Phone Number" required>
+</div>
+
+<div class="input-group">
+<i class="fa fa-calendar"></i>
+<input type="text" name="event_type" placeholder="Event Type" required>
+</div>
+
+<div class="input-group">
+<i class="fa fa-calendar-day"></i>
+<input type="date" name="event_date" required>
+</div>
+
+<div class="input-group">
+<i class="fa fa-layer-group"></i>
+<select name="plan" id="plan" onchange="setAmount()" required>
+<option value="">Select Plan</option>
+<option value="basic">Basic</option>
+<option value="premium">Premium</option>
+<option value="luxury">Luxury</option>
+<option value="ultra">Ultra</option>
+</select>
+</div>
+
+<div id="priceText" class="price-info"></div>
+
+<div class="input-group">
+<i class="fa fa-rupee-sign"></i>
+<input type="number" name="amount" id="amount" readonly placeholder="Amount">
+</div>
+
+<button type="submit">Book Now</button>
+
+</form>
+
+</div>
+</div>
+
+</div>
+</section>
+
+</body>
+</html>
